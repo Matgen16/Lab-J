@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHS Vikings Basketball - Fan Registration</title>
+    <link rel="stylesheet" href="basketball.css">
+</head>
+
+<body>
+    <h1>Princeton High School Vikings Basketball</h1>
+
+    <div class="form-container">
+        <div class="form-header">
+            <img src="Vikings.png" alt="Vikings Logo" width="80">
+            <h2>Fan Registration Form</h2>
+            <p>Stay updated with PHS Vikings basketball news, schedules, and events</p>
+        </div>
+
+        <form action="/submit-fan-registration" method="POST">
+            <div class="form-group">
+                <label for="full-name" class="required">Full Name</label>
+                <input type="text" id="full-name" name="full-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="required">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" minlength="9"
+                    maxlength="14">
+                <p class="form-note">For text alerts about game changes or cancellations</p>
+            </div>
+
+            <div class="student-section">
+                <div class="form-section-title">Student Information (if applicable)</div>
+
+                <div class="form-group">
+                    <label for="student-id">Student ID Number</label>
+                    <input type="number" id="student-id" name="student-id">
+                    <p class="form-note">Required for student ticket discounts</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="class">Class</label>
+                    <select id="class" name="class">
+                        <option value="" selected>Select year</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Which teams interest you?</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="team" value="boys-varsity"> Boys Varsity
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="team" value="boys-jv"> Boys JV
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="team" value="girls-varsity"> Girls Varsity
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="team" value="girls-jv"> Girls JV
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="team" value="freshman"> Freshman Team
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>How do you want to receive updates?</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="updates" value="email" checked> Email newsletters
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="updates" value="text"> Text messages
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="updates" value="both"> Both email and text
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="involvement">How are you involved with PHS Basketball?</label>
+                <select id="involvement" name="involvement">
+                    <option value="" selected>Select option</option>
+                    <option value="student">Student</option>
+                    <option value="parent">Parent</option>
+                    <option value="alumni">Alumni</option>
+                    <option value="staff">Staff</option>
+                    <option value="teacher">Teacher</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="comments">Questions or Comments</label>
+                <textarea id="comments" name="comments" rows="4"
+                    placeholder="Any specific information you're interested in?"></textarea>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        const phone = document.getElementById('phone');
+
+        phone.addEventListener('input', (e) => {
+            const nums = e.target.value.replace(/\D/g, '');
+            e.target.value = nums.length > 6 ? `(${nums.slice(0, 3)})-${nums.slice(3, 6)}-${nums.slice(6, 10)}` :
+                nums.length > 3 ? `(${nums.slice(0, 3)})-${nums.slice(3, 6)}` :
+                    nums.length > 0 ? `(${nums}` : '';
+        });
+
+        phone.addEventListener('keydown', (e) => {
+            if (e.key !== 'Backspace' && e.key !== 'Delete') return;
+            const { value, selectionStart: pos } = e.target;
+
+            const specialChars = { '(': ')-', ')-': ' ', ' ': '-', '-': '' };
+            if (specialChars[value[pos - 1]] !== undefined) {
+                e.preventDefault();
+                const replacement = specialChars[value[pos - 1]];
+                e.target.value = value.slice(0, pos - 1) + replacement + value.slice(pos);
+                e.target.setSelectionRange(pos - 1, pos - 1);
+            }
+        });
+    </script>
+</body>
+<footer>&copy;2025 Matthew gentle</footer>
+</html>
