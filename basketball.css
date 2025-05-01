@@ -32,10 +32,40 @@ h1 {
     margin-bottom: 20px;
 }
 
-.form-grid {
+.checkbox-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-areas:
+        "optionBv optionGv"
+        "optionB optionG"
+        "optionF optionF";
+}
+
+
+.checkbox-option-bv{
+	grid-area:optionBv;
+}
+
+.checkbox-option-gv{
+	grid-area: optionGv;
+}
+.checkbox-option-bjv{
+	grid-area:optionB;
+}
+
+.checkbox-option-gjv{
+	grid-area: optionG;
+}
+
+.checkbox-option-f{
+	grid-area:optionF;
+}
+.checkbox-option-bv, .checkbox-option-bjv, .checkbox-option-gv, .checkbox-option-gjv, .checkbox-option-f{
+	justify-content:center;
+    display: grid;
+    margin: 1vh 0.5vw;
+    padding: 1.8vh;
+    background-color: hsl(0, 0%, 94%);
+    border-radius: 4px;
 }
 
 .form-grid-full {
